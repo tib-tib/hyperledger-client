@@ -1,0 +1,92 @@
+name: "Applied Science Division Connection Profile"
+version: "1.0"
+
+client:
+  organization: ASDOrg
+  credentialStore:
+    path: "./hfc-key-store"
+    cryptoStore:
+      path: "./hfc-key-store"
+
+channels:
+  asdchannel:
+    orderers:
+      - orderer1.wayne-entreprises.com
+      - orderer2.wayne-entreprises.com
+    peers:
+      peer0.asd.wayne-entreprises.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.asd.wayne-entreprises.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer2.asd.wayne-entreprises.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+organizations:
+  ASDOrg:
+    mspid: ASDOrgMSP
+    peers:
+      - peer0.asd.wayne-entreprises.com
+      - peer1.asd.wayne-entreprises.com
+      - peer2.asd.wayne-entreprises.com
+    certificateAuthorities:
+      - ca.wayne-entreprises.com
+
+orderers:
+  orderer1.wayne-entreprises.com:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer1.wayne-entreprises.com
+    tlsCACerts:
+      path: tlscacerts/tlsca.wayne-entreprises.com-cert.pem
+  orderer2.wayne-entreprises.com:
+    url: grpcs://localhost:8050
+    grpcOptions:
+      ssl-target-name-override: orderer2.wayne-entreprises.com
+    tlsCACerts:
+      path: tlscacerts/tlsca.wayne-entreprises.com-cert.pem
+
+peers:
+  peer0.asd.wayne-entreprises.com:
+    url: grpcs://localhost:7051
+    eventUrl: grpcs://localhost:7053
+    grpcOptions:
+      ssl-target-name-override: peer0.asd.wayne-entreprises.com
+    tlsCACerts:
+      path: tlscacerts/tlsca.asd.wayne-entreprises.com-cert.pem
+
+  peer1.asd.wayne-entreprises.com:
+    url: grpcs://localhost:8051
+    eventUrl: grpcs://localhost:8053
+    grpcOptions:
+      ssl-target-name-override: peer1.asd.wayne-entreprises.com
+    tlsCACerts:
+      path: tlscacerts/tlsca.asd.wayne-entreprises.com-cert.pem
+
+  peer2.asd.wayne-entreprises.com:
+    url: grpcs://localhost:9051
+    eventUrl: grpcs://localhost:9053
+    grpcOptions:
+      ssl-target-name-override: peer2.asd.wayne-entreprises.com
+    tlsCACerts:
+      path: tlscacerts/tlsca.asd.wayne-entreprises.com-cert.pem
+
+certificateAuthorities:
+  ca.wayne-entreprises.com:
+    url: https://localhost:7054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path:
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.wayne-entreprises.com
